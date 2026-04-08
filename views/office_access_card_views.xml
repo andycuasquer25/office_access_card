@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista Tree -->
+    <record id="view_office_access_card_tree" model="ir.ui.view">
+        <field name="name">office.access.card.tree</field>
+        <field name="model">office.access.card</field>
+        <field name="arch" type="xml">
+            <tree string="Tarjetas de Acceso">
+                <field name="name"/>
+                <field name="card_type"/>
+                <field name="card_number"/>
+                <field name="user_id"/>
+                <field name="issue_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Form -->
+    <record id="view_office_access_card_form" model="ir.ui.view">
+        <field name="name">office.access.card.form</field>
+        <field name="model">office.access.card</field>
+        <field name="arch" type="xml">
+            <form string="Tarjeta de Acceso">
+                <header>
+                    <button name="action_activate_card"
+                            string="Activar"
+                            type="object"
+                            class="btn-primary"
+                            states="draft"/>
+                    <button name="action_block_card"
+                            string="Bloquear"
+                            type="object"
+                            class="btn-danger"
+                            states="draft,active"/>
+                    <button name="action_set_draft"
+                            string="Volver a Borrador"
+                            type="object"
+                            states="active,blocked"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,blocked"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="card_type"/>
+                            <field name="card_number"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="issue_date"/>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <button name="action_send_chatter_message"
+                                string="Enviar mensaje al chatter"
+                                type="object"
+                                class="oe_highlight"/>
+                    </group>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_office_access_card" model="ir.actions.act_window">
+        <field name="name">Tarjetas de Acceso</field>
+        <field name="res_model">office.access.card</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menú principal -->
+    <menuitem id="menu_office_access_card_root"
+              name="Accesos Oficina"
+              sequence="10"/>
+
+    <!-- Submenú -->
+    <menuitem id="menu_office_access_card"
+              name="Tarjetas de Acceso"
+              parent="menu_office_access_card_root"
+              action="action_office_access_card"
+              sequence="20"/>
+
+</odoo>

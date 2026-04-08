@@ -1,0 +1,33 @@
+<odoo>
+
+    <record id="view_users_form_inherit_access_card" model="ir.ui.view">
+        <field name="name">res.users.form.access.card</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Insertar después del notebook -->
+            <xpath expr="//notebook" position="inside">
+
+                <page string="Tarjetas de Acceso">
+                    
+                    <group>
+                        <field name="access_card_count" readonly="1"/>
+                    </group>
+
+                    <field name="access_card_ids">
+                        <tree>
+                            <field name="name"/>
+                            <field name="card_number"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+
+                </page>
+
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
